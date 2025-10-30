@@ -1,22 +1,21 @@
 #include <iostream>
-#include <cstdlib>
-#include <unistd.h>
-#include <sstream>
-#include <cerrno>
+#include <cstring>        // memset, etc.
+#include <iostream>       // for printing/logging
 #include <cstring>
 #include <string>
-#include <limits.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <sys/types.h>
 #include <thread>
-#include "helpers.h"
+#include <sys/socket.h>   // main socket functions
+#include <netinet/in.h>   // sockaddr_in structure (for IP addresses)
+#include <arpa/inet.h>    // inet_pton / inet_ntop helpers
+#include <unistd.h>       // close() function
 #include <time.h>
+#include "helpers.h"
 
 using namespace std;
 
 
 int main(){
+    
     std::thread t1(thread_func,20);
     std::thread t2(thread_func,10);
     t1.join();
@@ -25,7 +24,6 @@ int main(){
 
 
 void thread_func(int arg1){
-    sleep(1);
     cout << "Hello! " << arg1 << "\n";
 }
 
